@@ -14,51 +14,51 @@ using namespace std;
 class word
 {
 public:
-	string name;	//´æ´¢Ãô¸Ğ´Ê
-	int no;			//Ãô¸Ğ´ÊºÅ
-	int flag;		//ÖĞÓ¢ÎÄÇø±ğ±äÁ¿
+	string name;	//å­˜å‚¨æ•æ„Ÿè¯
+	int no;			//æ•æ„Ÿè¯å·
+	int flag;		//ä¸­è‹±æ–‡åŒºåˆ«å˜é‡
 }mg[200];
 
 class text
 {
 public:
-	string str;		//´æ´¢Ò»ĞĞµÄ´ı²âÎÄÕÂ
-	int no;			//ĞĞºÅ
+	string str;		//å­˜å‚¨ä¸€è¡Œçš„å¾…æµ‹æ–‡ç« 
+	int no;			//è¡Œå·
 }test[3000];
 
 class ans
 {
 public:
-	int wordno;		//ËùÊôÃô¸Ğ´ÊºÅ
-	int textno;		//ËùÊôĞĞºÅ
-	int front;		//±äĞÎºóµÄÃô¸Ğ´ÊµÄÆğÊ¼Î»ÖÃ
-	int end;		//±äĞÎºóµÄÃô¸Ğ´ÊµÄ½áÊøÎ»ÖÃ
+	int wordno;		//æ‰€å±æ•æ„Ÿè¯å·
+	int textno;		//æ‰€å±è¡Œå·
+	int front;		//å˜å½¢åçš„æ•æ„Ÿè¯çš„èµ·å§‹ä½ç½®
+	int end;		//å˜å½¢åçš„æ•æ„Ÿè¯çš„ç»“æŸä½ç½®
 }da[3000];
 
 
-ifstream filew;		//Ãô¸Ğ´ÊÊäÈëÎÄ¼ş
-ifstream filet;		//´ı²âÎÄÕÂÊäÈëÎÄ¼ş
-int wl, tl;			//Ãô¸Ğ´ÊÊı£¬ÎÄÕÂĞĞÊı
-int dalen = 0;		//´ğ°¸×ÜÊı
-ofstream out;		//´ğ°¸Êä³öÎÄ¼ş
+ifstream filew;		//æ•æ„Ÿè¯è¾“å…¥æ–‡ä»¶
+ifstream filet;		//å¾…æµ‹æ–‡ç« è¾“å…¥æ–‡ä»¶
+int wl, tl;			//æ•æ„Ÿè¯æ•°ï¼Œæ–‡ç« è¡Œæ•°
+int dalen = 0;		//ç­”æ¡ˆæ€»æ•°
+ofstream out;		//ç­”æ¡ˆè¾“å‡ºæ–‡ä»¶
 
 
 
-void shuru()										//´¦ÀíÊäÈëÊı¾İ²¢ÊäÈëÎÄ¼ş
+void shuru()										//å¤„ç†è¾“å…¥æ•°æ®å¹¶è¾“å…¥æ–‡ä»¶
 {
 	int i = 0;
 	string str1, str2;
 	cin >> str1;
 	filew.open(str1);
-	if (!filew)										//ÊäÈëµØÖ·´íÎóÅĞ¶Ï
+	if (!filew)										//è¾“å…¥åœ°å€é”™è¯¯åˆ¤æ–­
 	{
-		cout << "error£¡" << endl;
+		cout << "errorï¼" << endl;
 	}
 	while (filew >> str1)
 	{
 		mg[i].name = str1;
 		mg[i].no = i;
-		mg[i].flag = mg[i].name[0] > 0 ? 0 : 1;		//ÅĞ¶ÏÖĞÎÄ»òÓ¢ÎÄ
+		mg[i].flag = mg[i].name[0] > 0 ? 0 : 1;		//åˆ¤æ–­ä¸­æ–‡æˆ–è‹±æ–‡
 		i++;
 	}
 	wl = i;
@@ -66,11 +66,11 @@ void shuru()										//´¦ÀíÊäÈëÊı¾İ²¢ÊäÈëÎÄ¼ş
 	i = 0;
 	cin >> str2;
 	filet.open(str2);
-	if (!filet)										//ÊäÈëµØÖ·´íÎóÅĞ¶Ï
+	if (!filet)										//è¾“å…¥åœ°å€é”™è¯¯åˆ¤æ–­
 	{
-		cout << "error£¡" << endl;
+		cout << "errorï¼" << endl;
 	}
-	while (getline(filet, str2))					//Ò»ĞĞÒ»ĞĞÂ¼ÈëtextÀà
+	while (getline(filet, str2))					//ä¸€è¡Œä¸€è¡Œå½•å…¥textç±»
 	{
 		test[i].str = str2;
 		test[i].no = i;
@@ -80,7 +80,7 @@ void shuru()										//´¦ÀíÊäÈëÊı¾İ²¢ÊäÈëÎÄ¼ş
 	filet.close();
 }
 
-void charu(int front, int back, int wn, int tn)		//´¦Àí´ğ°¸£¬²¢Â¼ÈëansÀà
+void charu(int front, int back, int wn, int tn)		//å¤„ç†ç­”æ¡ˆï¼Œå¹¶å½•å…¥ansç±»
 {
 	da[dalen].textno = tn;
 	da[dalen].wordno = wn;
@@ -89,7 +89,7 @@ void charu(int front, int back, int wn, int tn)		//´¦Àí´ğ°¸£¬²¢Â¼ÈëansÀà
 	dalen++;
 }
 
-void find(word& W, text& T)							//²éÕÒ¶ÔÓ¦Ãô¸Ğ´Ê¶Î
+void find(word& W, text& T)							//æŸ¥æ‰¾å¯¹åº”æ•æ„Ÿè¯æ®µ
 {
 	int i = 0, j = 0;
 	int front = 0, back = 0;
@@ -97,13 +97,13 @@ void find(word& W, text& T)							//²éÕÒ¶ÔÓ¦Ãô¸Ğ´Ê¶Î
 	int fei = 0;
 	string a;
 	string  b;
-	if (W.flag == 1)								//ÖĞÎÄÆ¥Åä
+	if (W.flag == 1)								//ä¸­æ–‡åŒ¹é…
 	{
 		front = 0;
 		back = 0;
 		for (; j < T.str.length(); j++)
 		{
-			a = W.name.substr(i, 3);				//Ò»¸öÖĞÎÄ±àÂëÈı×Ö½Ú£¬Ã¿Èı×Ö½ÚÈ¡³öÅä¶Ô
+			a = W.name.substr(i, 3);				//ä¸€ä¸ªä¸­æ–‡ç¼–ç ä¸‰å­—èŠ‚ï¼Œæ¯ä¸‰å­—èŠ‚å–å‡ºé…å¯¹
 			b = T.str.substr(j, 3);
 			if (a==b)
 			{
@@ -113,7 +113,7 @@ void find(word& W, text& T)							//²éÕÒ¶ÔÓ¦Ãô¸Ğ´Ê¶Î
 				}
 				i += 3;
 				j += 2;
-				if (i == W.name.length())			//Ò»¸öÍêÕûÃô¸Ğ´ÊÆ¥Åä½áÊø£¬Â¼Èë´ğ°¸
+				if (i == W.name.length())			//ä¸€ä¸ªå®Œæ•´æ•æ„Ÿè¯åŒ¹é…ç»“æŸï¼Œå½•å…¥ç­”æ¡ˆ
 				{
 					charu(front, j, W.no, T.no);
 					i = 0;
@@ -124,11 +124,11 @@ void find(word& W, text& T)							//²éÕÒ¶ÔÓ¦Ãô¸Ğ´Ê¶Î
 
 		}
 	}
-	else											//Ó¢ÎÄÆ¥Åä
+	else											//è‹±æ–‡åŒ¹é…
 	{
 		front = 0;
 		back = 0;
-		transform(T.str.begin(), T.str.end(), T.str.begin(), ::tolower);			//´ı²âĞĞºÍ´ı²âÃô¸Ğ´Ê²»Çø·Ö´óĞ¡Ğ´£¬È«²¿×ª»»³ÉĞ¡Ğ´
+		transform(T.str.begin(), T.str.end(), T.str.begin(), ::tolower);			//å¾…æµ‹è¡Œå’Œå¾…æµ‹æ•æ„Ÿè¯ä¸åŒºåˆ†å¤§å°å†™ï¼Œå…¨éƒ¨è½¬æ¢æˆå°å†™
 		transform(W.name.begin(), W.name.end(), W.name.begin(), ::tolower);
 		for (; j < T.str.length(); j++)
 		{
@@ -139,7 +139,7 @@ void find(word& W, text& T)							//²éÕÒ¶ÔÓ¦Ãô¸Ğ´Ê¶Î
 					front = j;
 				}
 				i++;
-				if (i == W.name.length())			//Ò»¸öÍêÕûÃô¸Ğ´ÊÆ¥Åä½áÊø£¬Â¼Èë´ğ°¸
+				if (i == W.name.length())			//ä¸€ä¸ªå®Œæ•´æ•æ„Ÿè¯åŒ¹é…ç»“æŸï¼Œå½•å…¥ç­”æ¡ˆ
 				{
 					charu(front, j, W.no, T.no);
 					i = 0;
@@ -149,7 +149,7 @@ void find(word& W, text& T)							//²éÕÒ¶ÔÓ¦Ãô¸Ğ´Ê¶Î
 			}
 			else
 				fei++;
-			if (fei > 20)							//²åÈëÎŞ¹Ø×Ö·û³¬¹ı20¸ö£¬½áÊøÆ¥Åä
+			if (fei > 20)							//æ’å…¥æ— å…³å­—ç¬¦è¶…è¿‡20ä¸ªï¼Œç»“æŸåŒ¹é…
 				break;
 
 		}
@@ -160,14 +160,14 @@ void print()
 {
 	int i;
 	string adr;
-	cin >> adr;								//Êä³öÎÄ¼şµØÖ·
+	cin >> adr;								//è¾“å‡ºæ–‡ä»¶åœ°å€
 	out.open(adr);
 	if (!out)
 	{
 		cout << "error!" << endl;
 	}
 	out << "Total: " << dalen << endl;
-	for (i = 0; i < dalen; i++)				//Í¨¹ıÊä³öÁ÷Êä³ö´ğ°¸µ½¶ÔÓ¦ÎÄµµ
+	for (i = 0; i < dalen; i++)				//é€šè¿‡è¾“å‡ºæµè¾“å‡ºç­”æ¡ˆåˆ°å¯¹åº”æ–‡æ¡£
 	{
 		out << "Line" << da[i].textno + 1 << ": " << '<' << mg[da[i].wordno].name << "> " << test[da[i].textno].str.substr(da[i].front, da[i].end - da[i].front + 1) << endl;
 	}
@@ -178,9 +178,9 @@ int main()
 {
 	system("chcp 65001");
 
-	shuru();								//ÊäÈëÁ½¸ö²âÊÔÎÄµµµØÖ·£¬²¢´¦ÀíÊı¾İ
+	shuru();								//è¾“å…¥ä¸¤ä¸ªæµ‹è¯•æ–‡æ¡£åœ°å€ï¼Œå¹¶å¤„ç†æ•°æ®
 
-	for (int i = 0; i < tl; i++)			//Ã¿¸öÃô¸Ğ´ÊºÍ´ı²âĞĞÒ»¶ÔÒ»¼ì²â
+	for (int i = 0; i < tl; i++)			//æ¯ä¸ªæ•æ„Ÿè¯å’Œå¾…æµ‹è¡Œä¸€å¯¹ä¸€æ£€æµ‹
 	{
 		for (int j = 0; j < wl; j++)
 		{
@@ -188,7 +188,7 @@ int main()
 		}
 	}
 
-	print();								//ÊäÈëÊä³öµØÖ·£¬²¢Êä³ö´ğ°¸
+	print();								//è¾“å…¥è¾“å‡ºåœ°å€ï¼Œå¹¶è¾“å‡ºç­”æ¡ˆ
 
 	return 0;
 }
